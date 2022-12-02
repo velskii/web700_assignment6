@@ -161,10 +161,10 @@ module.exports.updateStudent = (studentNum, studentData) => {
     }
     studentNum = Number(studentNum);
     delete studentData.studentNum;
-    // console.log("update Student__________zhou");
-    // console.log(studentNum);
-    // console.log(studentData);
-    // console.log("update Student__________zhou");
+    console.log("update Student__________zhou");
+    console.log(studentNum);
+    console.log(studentData);
+    console.log("update Student__________zhou");
 
     Student.update(studentData, {
       where: {
@@ -173,6 +173,8 @@ module.exports.updateStudent = (studentNum, studentData) => {
       logging: console.log,
     })
       .then((data) => {
+        console.log("update successfully_____");
+        console.log(data);
         resolve(data);
       })
       .catch((err) => {
