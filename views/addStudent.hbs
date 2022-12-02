@@ -81,18 +81,18 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="course">Enrolled in Course:</label>
-              <select class="form-control" id="course" name="course">
-                {{#if courses}}
-                  <select class="form-control" name="course" id="course">
-                    <option value="">Select Course</option>
-                    {{#each courses}}
-                      <option value="{{courseId}}">{{courseCode}}</option>
-                    {{/each}}
-                  </select>
-                {{else}}
-                  <div>No Courses</div>
-                {{/if}}
-              </select>
+              {{#if courses}}
+                <select class="form-control" name="course" id="course">
+                  <option value="">Select Course</option>
+                  {{#each courses}}
+                    <option
+                      value="{{courseCode}}"
+                    >{{courseDescription}}</option>
+                  {{/each}}
+                </select>
+              {{else}}
+                <div>No Courses</div>
+              {{/if}}
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@
 
     <form method="post" action="/student/update">
 
-      <input type="hidden" name="studentNum" value="1" />
+      <input type="hidden" name="studentNum" value="{{viewData.student.studentNum}}" />
 
       <fieldset>
         <legend>Personal Information</legend>
@@ -125,7 +125,7 @@
               <select class="form-control" name="course" id="course">
               <option value="">Select Course</option>
               {{#each viewData.courses}}
-              <option value="{{courseId}}" {{#if selected}} selected {{/if}} >{{courseCode}} </option>
+              <option value="{{courseId}}" {{#if selected}} selected {{/if}} >{{courseDescription}} </option>
               {{/each}}
               </select>
               {{else}}

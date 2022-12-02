@@ -113,7 +113,7 @@ module.exports.getCourses = function () {
 
 module.exports.getCourseById = function (id) {
   return new Promise((resolve, reject) => {
-    Course.findAll({
+    Course.findOne({
       where: {
         courseId: id,
       },
@@ -159,18 +159,24 @@ module.exports.updateStudent = (studentNum, studentData) => {
         studentData.prop = null;
       }
     }
-    Student.update(
-      { studentData },
-      {
-        where: {
-          studentNum: studentNum,
-        },
-      }
-    )
+    studentNum = Number(studentNum);
+    delete studentData.studentNum;
+    // console.log("update Student__________zhou");
+    // console.log(studentNum);
+    // console.log(studentData);
+    // console.log("update Student__________zhou");
+
+    Student.update(studentData, {
+      where: {
+        studentNum: Number(studentNum),
+      },
+      logging: console.log,
+    })
       .then((data) => {
         resolve(data);
       })
       .catch((err) => {
+        console.log(err);
         reject("unable to update student");
       });
   });
@@ -200,18 +206,24 @@ module.exports.updateCourse = (courseId, courseData) => {
         courseData.prop = null;
       }
     }
-    Course.update(
-      { courseData },
-      {
-        where: {
-          courseId: courseId,
-        },
-      }
-    )
+
+    console.log("update Course__________zhou");
+    console.log(courseId);
+    console.log(courseData);
+    console.log("update Course__________zhou");
+
+    Course.update(courseData, {
+      where: {
+        courseId: courseId,
+      },
+    })
       .then((data) => {
+        console.log("update successfully_____");
+        console.log(data);
         resolve(data);
       })
       .catch((err) => {
+        console.log(err);
         reject("unable to update course");
       });
   });

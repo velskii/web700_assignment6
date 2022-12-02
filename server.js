@@ -164,7 +164,7 @@ app.post("/courses/add", (req, res) => {
 });
 
 app.post("/course/update", (req, res) => {
-  db.updateCourse(req.body)
+  db.updateCourse(req.body.courseId, req.body)
     .then((data) => {
       res.redirect("/courses");
     })
@@ -176,6 +176,8 @@ app.post("/course/update", (req, res) => {
 app.get("/course/:id", (req, res) => {
   db.getCourseById(req.params.id)
     .then((data) => {
+      console.log("courses________");
+      console.log(data);
       if (data != undefined) {
         res.render("course", {
           course: data,
@@ -245,9 +247,9 @@ app.get("/student/:studentNum", (req, res) => {
         // if no student - return an error
         res.status(404).send("Student Not Found");
       } else {
-        console.log("zhou________");
-        console.log(viewData);
-        console.log("zhou________");
+        // console.log("zhou________");
+        // console.log(viewData);
+        // console.log("zhou________");
         res.render("student", { viewData: viewData }); // render the "student" view
       }
     });
@@ -257,7 +259,7 @@ app.post("/student/update", (req, res) => {
   req.body.TA = req.body.TA ? true : false;
   // console.log(req.body);
 
-  db.updateStudent(req.body)
+  db.updateStudent(req.body.studentNum, req.body)
     .then((data) => {
       res.redirect("/students");
     })
