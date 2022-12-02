@@ -85,13 +85,13 @@ module.exports.getStudentsByCourse = (course) => {
 
 module.exports.getStudentByNum = (num) => {
   return new Promise((resolve, reject) => {
-    Student.findOne({
+    Student.findAll({
       where: {
         studentNum: num,
       },
     })
       .then((data) => {
-        resolve(data);
+        resolve(data[0]);
       })
       .catch((err) => {
         reject("no results returned");
@@ -113,13 +113,13 @@ module.exports.getCourses = function () {
 
 module.exports.getCourseById = function (id) {
   return new Promise((resolve, reject) => {
-    Course.findOne({
+    Course.findAll({
       where: {
         courseId: id,
       },
     })
       .then((data) => {
-        resolve(data);
+        resolve(data[0]);
       })
       .catch((err) => {
         reject("no results returned");
@@ -131,21 +131,15 @@ module.exports.addStudent = function (studentData) {
   return new Promise((resolve, reject) => {
     studentData.TA = studentData.TA ? true : false;
     for (prop in studentData) {
-      if (prop == "") {
+      if (prop == "" && prop != TA) {
         studentData.prop = null;
       }
     }
-    console.log("Zhou________");
-    console.log(studentData);
-    console.log("Zhou________");
     Student.create(studentData)
       .then((newStudent) => {
         resolve(newStudent);
       })
       .catch((err) => {
-        console.log("Zhou________");
-        console.log(err);
-        console.log("Zhou________");
         reject("unable to create student");
       });
   });
@@ -155,30 +149,22 @@ module.exports.updateStudent = (studentNum, studentData) => {
   return new Promise((resolve, reject) => {
     studentData.TA = studentData.TA ? true : false;
     for (prop in studentData) {
-      if (prop == "") {
+      if (prop == "" && prop != TA) {
         studentData.prop = null;
       }
     }
     studentNum = Number(studentNum);
     delete studentData.studentNum;
-    console.log("update Student__________zhou");
-    console.log(studentNum);
-    console.log(studentData);
-    console.log("update Student__________zhou");
 
     Student.update(studentData, {
       where: {
         studentNum: Number(studentNum),
       },
-      logging: console.log,
     })
       .then((data) => {
-        console.log("update successfully_____");
-        console.log(data);
         resolve(data);
       })
       .catch((err) => {
-        console.log(err);
         reject("unable to update student");
       });
   });
@@ -209,23 +195,15 @@ module.exports.updateCourse = (courseId, courseData) => {
       }
     }
 
-    console.log("update Course__________zhou");
-    console.log(courseId);
-    console.log(courseData);
-    console.log("update Course__________zhou");
-
     Course.update(courseData, {
       where: {
         courseId: courseId,
       },
     })
       .then((data) => {
-        console.log("update successfully_____");
-        console.log(data);
         resolve(data);
       })
       .catch((err) => {
-        console.log(err);
         reject("unable to update course");
       });
   });
